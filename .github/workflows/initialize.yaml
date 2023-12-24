@@ -1,4 +1,4 @@
-name: Python Project CI
+name: Initialize PyProject TOML Project CI
 
 on:
   push:
@@ -18,13 +18,25 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.9' # Ensure this matches the version you want to use
-
+        python-version: '3.9'
+        
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
 
+    - name: Check for pyproject.toml
+      id: check-file
+      run: |
+        if [ -f "pyproject.toml" ]; then
+          echo "pyproject.toml exists."
+          echo "::set-output name=exists::true"
+        else
+          echo "pyproject.toml does not exist."
+          echo "::set-output name=exists::false"
+        fi
+
     - name: Initialize pyproject.toml
+      if: steps.check-file.outputs.exists == 'false'
       run: |
         poetry init --name my-ai-assistant --description "My AI Assistant Project" --dependency autogen --dependency "langchain[all]" --dependency openai --dependency "langserve[all]" -n
 
