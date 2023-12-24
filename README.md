@@ -1,5 +1,7 @@
 # My IRL-AI Assistant Project
 
+[![Python Project CI](https://github.com/Cdaprod/cda.IRL_AI/actions/workflows/initialize.yaml/badge.svg)](https://github.com/Cdaprod/cda.IRL_AI/actions/workflows/initialize.yaml)
+
 This project is an AI-powered assistant developed using Python and integrated with various AI and machine learning tools. It's built on a Raspberry Pi, leveraging technologies like AutoGen, LangChain, OpenAI, and LangServe for advanced functionalities.
 
 ## Features
