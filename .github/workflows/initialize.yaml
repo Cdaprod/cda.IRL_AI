@@ -40,6 +40,15 @@ jobs:
       run: |
         poetry init --name my-ai-assistant --description "My AI Assistant Project" --dependency autogen --dependency "langchain[all]" --dependency openai --dependency "langserve[all]" -n
 
+    - name: Commit pyproject.toml
+      if: steps.check-file.outputs.exists == 'false'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add pyproject.toml
+        git commit -m "Add generated pyproject.toml"
+        git push
+
     - name: Install dependencies
       run: |
         poetry install
