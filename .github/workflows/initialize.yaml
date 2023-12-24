@@ -1,0 +1,33 @@
+name: Python Project CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      # This step checks out your repository
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9' # Ensure this matches the version you want to use
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+
+    - name: Initialize pyproject.toml
+      run: |
+        poetry init --name my-ai-assistant --description "My AI Assistant Project" --dependency autogen --dependency "langchain[all]" --dependency openai --dependency "langserve[all]" -n
+
+    - name: Install dependencies
+      run: |
+        poetry install
